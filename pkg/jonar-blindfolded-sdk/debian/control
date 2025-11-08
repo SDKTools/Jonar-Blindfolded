@@ -20,6 +20,9 @@ Depends:
  libespeak-ng1,
  python3-pyaudio,
  python3-all-dev, 
- portaudio19-dev
+ portaudio19-dev,
+ flac,
+ python3,
+ python3-pip
 Description: <insert up to 60 chars description>
  <Insert long description, indented with spaces.>
