@@ -1,0 +1,14 @@
+pyttsx3>=2.90
+SpeechRecognition>=3.14
+
+[googlecloud]
+google-api-python-client
+
+[groq]
+groq
+
+[openai]
+openai
+
+[pocketsphinx]
+pocketsphinx

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jonar-blindfolded-talk-framework"
+version = "25.11"
+authors = [
+  { name="Jonas Andrade Neves Drummond de Paiva", email="locdev.loss.of.control@gmail.com" },
+]
+description = "The Jonar Blindfolded Framework for making apps talk!"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "pyttsx3 >= 2.90", 
+  "SpeechRecognition >= 3.14"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Linux",
+]
+license = "GPL-2.0-or-later"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
+
+[project.optional-dependencies]
+pocketsphinx = ["pocketsphinx"]
+googlecloud = ["google-api-python-client"]
+openai = ["openai"]
+groq = ["groq"]
