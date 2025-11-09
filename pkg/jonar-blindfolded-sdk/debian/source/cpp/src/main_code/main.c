@@ -52,12 +52,12 @@ int NO_DISPLAY = 3;
 // Comment the line below in Production
 const char* ATHOMYCAL_IMG_PATH = "./athomycal.png";
 
-Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
+Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, SDL_Renderer* renderer, int layout) {
     // Todo: Make it load a real animation(dispose the animation after use)
     // Placeholder code:
 
     // Keep This:
-    Texture_Animation* animation;
+    Texture_Animation* animation = malloc(sizeof(struct Texture_Animation));
     int window_width, window_height;
     SDL_GetWindowSize(window, &window_width, &window_height);
 
@@ -71,7 +71,7 @@ Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
     // Change this:
     animation->count = 1;
     SDL_Surface* loaded_img = IMG_Load(ATHOMYCAL_IMG_PATH);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(SDL_GetRenderer(window), loaded_img);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, loaded_img);
     SDL_FreeSurface(loaded_img);
     animation->frames = malloc(sizeof(SDL_Texture*));
     animation->frames[0] = texture;
@@ -92,4 +92,16 @@ int DisplayAthomycalUI(const char* message, int layout, SDL_Renderer* renderer, 
         SDL_RenderCopy(renderer, animation->frames[0], NULL, &destRect);
         SDL_RenderPresent(renderer);
     }
+}
+
+int QUIT_REQUESTED = 4;
+
+int CheckIfQuit() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            return QUIT_REQUESTED;
+        }
+    }
+    return 0;
 }

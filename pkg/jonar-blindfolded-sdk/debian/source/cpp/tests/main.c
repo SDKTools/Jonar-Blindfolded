@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
         layout = NO_DISPLAY;
     }
 
-    Texture_Animation* animation = LoadAthomycalAnimation(window, layout);
+    Texture_Animation* animation = LoadAthomycalAnimation(window, renderer, layout);
 
     if (animation == NULL) {
         printf("Failed to load animation\n");
@@ -26,9 +26,21 @@ int main(int argc, char* argv[]) {
     while (width == 800) {
         // Main loop placeholder
         DisplayAthomycalUI("Welcome to Jonar Blindfolded SDK!", layout, renderer, window, animation);
+
+        if (CheckIfQuit() == QUIT_REQUESTED) {
+            break;
+        }
+
         SDL_Delay(1000 / 60); // 60 FPS
     }
 
+    SDL_DestroyTexture(animation->frames[0]);
+    free(animation->frames);
+    free(animation->delays);
+    free(animation);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    IMG_Quit();
     SDL_Quit();
     return 0;
 }

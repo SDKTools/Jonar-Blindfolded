@@ -25,7 +25,11 @@ extern int NO_DISPLAY;
 // Comment the line below in Production
 extern const char* ATHOMYCAL_IMG_PATH;
 
-Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout);
+Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, SDL_Renderer* renderer, int layout);
 int DisplayAthomycalUI(const char* message, int layout, SDL_Renderer* renderer, SDL_Window* window, Texture_Animation* animation);
+
+extern int QUIT_REQUESTED;
+
+int CheckIfQuit();
 
 #endif
