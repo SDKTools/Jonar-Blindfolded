@@ -1,9 +1,13 @@
-#include "../header/main.h"
+#include <main.h>
 
 SDL_Window* MakeWindow(const char* title) {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    int img_init = IMG_Init(IMG_INIT_PNG);
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL_Init Error: %s\n", SDL_GetError());
         return NULL;
-    } else if (IMG_Init(IMG_INIT_PNG) != 0) {
+    } else if (img_init == 0) {
+        printf("IMG_Init Error: %s\n", IMG_GetError());
+        printf("IMG_Init num: %d\n", img_init);
         SDL_Quit();
         return NULL;
     }
@@ -19,8 +23,9 @@ SDL_Window* MakeWindow(const char* title) {
     if (!window) {
         IMG_Quit();
         SDL_Quit();
-        return -3;
-    } else 
+        printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
+        return NULL;
+    }
 
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
@@ -42,6 +47,7 @@ int ATHOMYCAL_VERTICAL_LAYOUT = 0;
 int ATHOMYCAL_HORIZONTAL_LAYOUT = 1;
 int ONLY_IMG = 2;
 int NO_DISPLAY = 3;
+
 // In Production uncomment this: const char* ATHOMYCAL_IMG_PATH = "/usr/share/jonar-blindfolded-de/athomycal.png";
 // Comment the line below in Production
 const char* ATHOMYCAL_IMG_PATH = "./athomycal.png";

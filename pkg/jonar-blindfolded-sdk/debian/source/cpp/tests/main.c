@@ -1,4 +1,4 @@
-#include "../src/header/main.h"
+#include <main.h>
 
 int main(int argc, char* argv[]) {
     const char* title = "Jonar Blindfolded SDK Window";
@@ -9,14 +9,17 @@ int main(int argc, char* argv[]) {
     SDL_Window* window = MakeWindow(title);
     SDL_Renderer* renderer = MakeRenderer(window);
     if (!window) {
+        printf("Failed to create window\n");
         return -1;
     } else if (!renderer) {
+        printf("Failed to create renderer\n");
         layout = NO_DISPLAY;
     }
 
     Texture_Animation* animation = LoadAthomycalAnimation(window, layout);
 
     if (animation == NULL) {
+        printf("Failed to load animation\n");
         layout = NO_DISPLAY;
     }
 
