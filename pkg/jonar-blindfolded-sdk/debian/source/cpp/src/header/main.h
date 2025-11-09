@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 
 SDL_Window* MakeWindow(const char* title);
+SDL_Renderer* MakeRenderer(SDL_Window* window);
 
 typedef struct Texture_Animation
 {

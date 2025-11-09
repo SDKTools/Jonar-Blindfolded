@@ -2,10 +2,10 @@
 
 SDL_Window* MakeWindow(const char* title) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        return -1;
+        return NULL;
     } else if (IMG_Init(IMG_INIT_PNG) != 0) {
         SDL_Quit();
-        return -2;
+        return NULL;
     }
     
 
@@ -16,22 +16,26 @@ SDL_Window* MakeWindow(const char* title) {
                                           600,
                                           SDL_WINDOW_SHOWN);
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
     if (!window) {
         IMG_Quit();
         SDL_Quit();
         return -3;
-    } else if (!renderer) {
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        SDL_Quit();
-        return -4;
-    }
+    } else 
 
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
-    return window || -5, renderer || -6;
+    return window;
+}
+
+SDL_Renderer* MakeRenderer(SDL_Window* window) {
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (!renderer) {
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return NULL;
+    }
+    return renderer;
 }
 
 int ATHOMYCAL_VERTICAL_LAYOUT = 0;
@@ -41,15 +45,6 @@ int NO_DISPLAY = 3;
 // In Production uncomment this: const char* ATHOMYCAL_IMG_PATH = "/usr/share/jonar-blindfolded-de/athomycal.png";
 // Comment the line below in Production
 const char* ATHOMYCAL_IMG_PATH = "./athomycal.png";
-
-typedef struct Texture_Animation
-{
-    int w;                  /**< The width of the frames */
-    int h;                  /**< The height of the frames */
-    int count;              /**< The number of frames */
-    SDL_Texture **frames;   /**< An array of frames */
-    int *delays;            /**< An array of frame delays, in milliseconds */
-} Texture_Animation;
 
 Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
     // Todo: Make it load a real animation(dispose the animation after use)
@@ -76,7 +71,7 @@ Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
     animation->frames[0] = texture;
     animation->delays = malloc(sizeof(int));
     animation->delays[0] = 16; // 1 second delay
-    return animation || -7;
+    return animation;
 }
 
 int DisplayAthomycalUI(const char* message, int layout, SDL_Renderer* renderer, SDL_Window* window, Texture_Animation* animation) {
