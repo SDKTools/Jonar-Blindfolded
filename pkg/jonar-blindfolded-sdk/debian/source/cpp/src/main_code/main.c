@@ -62,7 +62,7 @@ Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, SDL_Renderer* rend
     SDL_GetWindowSize(window, &window_width, &window_height);
 
     if (layout == ATHOMYCAL_VERTICAL_LAYOUT) {
-        animation->h = (window_height / 2) - (window_height / 10 * 2); // Half window height minus some margin(20% of height)
+        animation->h = (window_height / 3 * 2) - (window_height / 10 * 2); // Half window height minus some margin(20% of height)
         animation->w = (window_width / 3); // 1/3 of window width
     } else if (layout == ATHOMYCAL_HORIZONTAL_LAYOUT) {
         // Horizontal layout
