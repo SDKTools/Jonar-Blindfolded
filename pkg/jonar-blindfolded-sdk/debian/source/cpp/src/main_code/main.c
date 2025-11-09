@@ -40,7 +40,8 @@ IMG_Animation* LoadAthomycalAnimation(SDL_Window* window) {
     IMG_Animation* animation;
     int window_width, window_height;
     SDL_GetWindowSize(window, &window_width, &window_height);
-    animation->h = (window_height / 2) - (window_height / 10 * 2);
+    animation->h = (window_height / 2) - (window_height / 10 * 2); // Half window height minus some margin(20% of height)
+    animation->w = (window_width / 3); // 1/3 of window width
 }
 
 int DisplayAthomycalUI(const char* message, int layout) {
