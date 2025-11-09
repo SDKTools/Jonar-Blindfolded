@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    IMG_Animation* animation = LoadAthomycalAnimation(window, ATHOMYCAL_VERTICAL_LAYOUT);
+    Texture_Animation* animation = LoadAthomycalAnimation(window, ATHOMYCAL_VERTICAL_LAYOUT);
     while (width == 800) {
         // Main loop placeholder
         DisplayAthomycalUI("Welcome to Jonar Blindfolded SDK!", ATHOMYCAL_VERTICAL_LAYOUT, renderer, window, animation);

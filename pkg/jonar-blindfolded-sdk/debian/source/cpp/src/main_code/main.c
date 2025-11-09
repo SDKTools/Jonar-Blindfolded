@@ -42,12 +42,21 @@ int NO_DISPLAY = 3;
 // Comment the line below in Production
 const char* ATHOMYCAL_IMG_PATH = "./athomycal.png";
 
-IMG_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
+typedef struct Texture_Animation
+{
+    int w;                  /**< The width of the frames */
+    int h;                  /**< The height of the frames */
+    int count;              /**< The number of frames */
+    SDL_Texture **frames;   /**< An array of frames */
+    int *delays;            /**< An array of frame delays, in milliseconds */
+} Texture_Animation;
+
+Texture_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
     // Todo: Make it load a real animation(dispose the animation after use)
     // Placeholder code:
 
     // Keep This:
-    IMG_Animation* animation;
+    Texture_Animation* animation;
     int window_width, window_height;
     SDL_GetWindowSize(window, &window_width, &window_height);
 
@@ -63,13 +72,14 @@ IMG_Animation* LoadAthomycalAnimation(SDL_Window* window, int layout) {
     SDL_Surface* loaded_img = IMG_Load(ATHOMYCAL_IMG_PATH);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(SDL_GetRenderer(window), loaded_img);
     SDL_FreeSurface(loaded_img);
-    animation->frames = &texture;
+    animation->frames = malloc(sizeof(SDL_Texture*));
+    animation->frames[0] = texture;
     animation->delays = malloc(sizeof(int));
     animation->delays[0] = 16; // 1 second delay
     return animation || -7;
 }
 
-int DisplayAthomycalUI(const char* message, int layout, SDL_Renderer* renderer, SDL_Window* window, IMG_Animation* animation) {
+int DisplayAthomycalUI(const char* message, int layout, SDL_Renderer* renderer, SDL_Window* window, Texture_Animation* animation) {
     // Todo: Make animation mecanism
     int window_width, window_height;
     SDL_GetWindowSize(window, &window_width, &window_height);
