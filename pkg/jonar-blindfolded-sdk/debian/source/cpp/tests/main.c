@@ -5,13 +5,17 @@ int main(int argc, char* argv[]) {
     int width = 800;
     int height = 600;
 
-    int result = MakeWindow(title, width, height);
-    if (result == -1) {
+    auto window, renderer = MakeWindow(title);
+    if (window == -1) {
         return -1;
     }
 
-    // Main loop placeholder
-    SDL_Delay(3000); // Keep the window open for 3 seconds
+    IMG_Animation* animation = LoadAthomycalAnimation(window, ATHOMYCAL_VERTICAL_LAYOUT);
+    while (width == 800) {
+        // Main loop placeholder
+        DisplayAthomycalUI("Welcome to Jonar Blindfolded SDK!", ATHOMYCAL_VERTICAL_LAYOUT, renderer, window, animation);
+        SDL_Delay(1000 / 60); // 60 FPS
+    }
 
     SDL_Quit();
     return 0;
