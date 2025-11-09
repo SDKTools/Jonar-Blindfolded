@@ -1,9 +1,10 @@
 #include "../header/main.h"
 
-int MakeWindow(const char* title, int width, int height) {
+SDL_Window* MakeWindow(const char* title, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         return -1;
     } else if (IMG_Init(IMG_INIT_PNG) != 0) {
+        SDL_Quit();
         return -2;
     }
     
@@ -15,6 +16,7 @@ int MakeWindow(const char* title, int width, int height) {
                                           height,
                                           SDL_WINDOW_SHOWN);
     if (!window) {
+        IMG_Quit();
         SDL_Quit();
         return -3;
     }
@@ -31,6 +33,15 @@ int NO_DISPLAY = 3;
 // In Production uncomment this: const char* ATHOMYCAL_IMG_PATH = "/usr/share/jonar-blindfolded-de/athomycal.png";
 // Comment the line below in Production
 const char* ATHOMYCAL_IMG_PATH = "./athomycal.png";
+
+IMG_Animation* LoadAthomycalAnimation(SDL_Window* window) {
+    // Todo: Make it load a real animation
+    // Placeholder code:
+    IMG_Animation* animation;
+    int window_width, window_height;
+    SDL_GetWindowSize(window, &window_width, &window_height);
+    animation->h = (window_height / 2) - (window_height / 10 * 2);
+}
 
 int DisplayAthomycalUI(const char* message, int layout) {
 
