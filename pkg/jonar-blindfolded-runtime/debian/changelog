@@ -1,0 +1,5 @@
+jonar-blindfolded-runtime (1.0.0-1) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Paiva <paiva@unknown>  Sun, 28 Jun 2026 15:09:44 -0300
